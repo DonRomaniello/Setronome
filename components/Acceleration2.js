@@ -20,7 +20,12 @@ import {
   Accelerometer,
 } from 'expo-sensors';
 
+import {
+  getAverageOfEndOfArray,
+} from './modules'
+
 import Graph from "./Graph";
+
 
 export default Acceleration = () => {
 
@@ -47,7 +52,9 @@ export default Acceleration = () => {
 
     const { x, y, z } = data;
 
-    const initialReadingsArrays = {xArray: [x], yArray: [y], zArray: [z]}
+    const initialReadingsArrays = {xArray: [x.toFixed(1)],
+                                   yArray: [y.toFixed(1)],
+                                   zArray: [z.toFixed(1)]}
 
     const [readingsArrays, setReadingsArrays] = useState(initialReadingsArrays)
 
@@ -55,10 +62,6 @@ export default Acceleration = () => {
       subscription && subscription.remove();
       setSubscription(null);
     };
-
-    const getAverageOfEndOfArray = (array, samples) => {
-      return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
-    }
 
     useEffect(() => {
       _subscribe();
@@ -93,7 +96,7 @@ export default Acceleration = () => {
       </Text>
       <Text
       style={styles.header}>
-        {getAverageOfEndOfArray(readingsArrays.xArray,100).toFixed(3)}
+        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(1)}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
       </>
