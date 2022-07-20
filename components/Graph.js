@@ -24,6 +24,9 @@ export default Graph = (props) => {
           {
             data: (readings.length > 30) ? readings.slice(-30) : readings,
           },
+          {
+            data: [.5, 3]
+          }
           // {
           //   data: (readings.length > 30) ? readings.slice(-30).map((value) => value /2 ) : readings.map((value) => value / 2 )
           // }

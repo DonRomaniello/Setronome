@@ -71,8 +71,7 @@ export default Acceleration = () => {
     /* With a large amount of readings in the sample array, some of the readings
     are rather stale. This only takes an average of X amount of samples from the
     very end of the array */
-    const getAverageOfEndOfArray = (array) => {
-      const samples = 30
+    const getAverageOfEndOfArray = (array, samples) => {
       return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
     }
 
@@ -87,8 +86,15 @@ export default Acceleration = () => {
     }, []);
 
     useEffect(() => {
-      updateArray( totalAcceleration(), totalAccelerationArray, setTotalAccelerationArray);
-      setAverageG(getAverageOfEndOfArray(totalAccelerationArray))
+      updateArray(totalAcceleration(),
+       totalAccelerationArray,
+        setTotalAccelerationArray);
+
+      setAverageG(getAverageOfEndOfArray(totalAccelerationArray, 30))
+
+      updateArray(averageG,
+        averageGArray,
+        setAverageGAraay)
     }, [data])
 
     return (
@@ -98,7 +104,7 @@ export default Acceleration = () => {
 
         {averageG.toFixed(3)}
       </Text>
-      <Graph readings={totalAccelerationArray} />
+      {/* <Graph readings={averageGArray} /> */}
       </>
   );
 }
