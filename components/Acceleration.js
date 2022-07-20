@@ -21,7 +21,6 @@ export default Acceleration = () => {
 
   const [readingArray, setReadingArray] = useState([]);
 
-
   const _slow = () => {
     Accelerometer.setUpdateInterval(1000);
   };
@@ -42,6 +41,9 @@ export default Acceleration = () => {
       setSubscription(null);
     };
 
+    /* Keeping the phone oriented one way is impractical, so this sums all
+    the accelerations together. It uses the absolute values to prevent
+    negative and positive values cancelling each other out. */
     const totalAcceleration = () => {
       const {x, y, z} = data;
       return Math.abs(x)
@@ -49,6 +51,8 @@ export default Acceleration = () => {
       + Math.abs(z)
     }
 
+    /* This removes the oldest sample from the array if the array has been
+    'filled'. It then adds the newest sample to the end of the array. */
     const updateReadingArray = () => {
       const currentG = totalAcceleration();
       const samples = 1000;
@@ -60,10 +64,11 @@ export default Acceleration = () => {
       setReadingArray(workingArray)
     }
 
+    /* With a large amount of readings in the sample array, some of the readings
+    are rather stale. This only takes an average of X amount of samples from the
+    very end of the array */
     const getAverageOfEndOfArray = (array) => {
-
       const samples = 3
-
       return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
     }
 
