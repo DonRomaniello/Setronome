@@ -22,14 +22,17 @@ export default Graph = (props) => {
       data={{
         datasets: [
           {
-            data: (readings.length > 30) ? readings.slice(-30) : readings
-          }
+            data: (readings.length > 30) ? readings.slice(-30) : readings,
+          },
+          // {
+          //   data: (readings.length > 30) ? readings.slice(-30).map((value) => value /2 ) : readings.map((value) => value / 2 )
+          // }
         ]
       }}
-      width={Dimensions.get("window").width} // from react-native
-      height={220}
-      yAxisLabel="$"
-      yAxisSuffix="k"
+      width={Dimensions.get("window").width - 30} // from react-native
+      height={Dimensions.get("window").width - 30}
+      yAxisLabel=""
+      yAxisSuffix="G"
       yAxisInterval={1} // optional, defaults to 1
       chartConfig={{
         backgroundColor: "#AAAE7F",

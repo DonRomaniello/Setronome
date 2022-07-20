@@ -21,10 +21,13 @@ export default Acceleration = () => {
 
   const [subscription, setSubscription] = useState(null);
 
-  const [readingArray, setReadingArray] = useState([1, 1, 1]);
+  const [totalAccelerationArray, setTotalAccelerationArray] = useState([1, 1, 1])
 
-  const _slow = () => {
-    Accelerometer.setUpdateInterval(1000);
+  const [readingsArray, setReadingsArray] = useState([{x: [0], y: [0], z:[1]}]);
+
+  /* This sets the speed of updates */
+  const _setSpeed = (millis) => {
+    Accelerometer.setUpdateInterval(millis);
   };
 
   const _subscribe = () => {
@@ -36,7 +39,6 @@ export default Acceleration = () => {
     };
 
     const { x, y, z } = data;
-
 
     const _unsubscribe = () => {
       subscription && subscription.remove();
@@ -53,48 +55,50 @@ export default Acceleration = () => {
       + Math.abs(z)
     }
 
-    /* This removes the oldest sample from the array if the array has been
+    /* This removes the oldest sample from an array if the array has been
     'filled'. It then adds the newest sample to the end of the array. */
-    const updateReadingArray = () => {
-      const currentG = totalAcceleration();
+    const updateArray = (reading, array, setFunction) => {
+      const currentReading = reading;
       const samples = 1000;
-      let workingArray = readingArray;
+      let workingArray = array;
       if (workingArray.length > samples) {
         workingArray.shift()
       }
-      workingArray.push(currentG)
-      setReadingArray(workingArray)
+      workingArray.push(currentReading)
+      setFunction(workingArray)
     }
 
     /* With a large amount of readings in the sample array, some of the readings
     are rather stale. This only takes an average of X amount of samples from the
     very end of the array */
     const getAverageOfEndOfArray = (array) => {
-      const samples = 3
+      const samples = 30
       return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
     }
 
     const [averageG, setAverageG] = useState(totalAcceleration())
 
+    const [averageGArray, setAverageGAraay] = useState([totalAcceleration()]);
+
     useEffect(() => {
       _subscribe();
+      _setSpeed(100);
       return () => _unsubscribe();
     }, []);
 
     useEffect(() => {
-      updateReadingArray();
-      setAverageG(getAverageOfEndOfArray(readingArray))
+      updateArray( totalAcceleration(), totalAccelerationArray, setTotalAccelerationArray);
+      setAverageG(getAverageOfEndOfArray(totalAccelerationArray))
     }, [data])
 
     return (
       <>
       <Text
       style={styles.header}>
-        {/* x: {x.toFixed(3)} y: {y.toFixed(3)} z: {z.toFixed(3)} */}
-        {/* {totalAcceleration().toFixed(3)} */}
+
         {averageG.toFixed(3)}
       </Text>
-      <Graph readings={readingArray} />
+      <Graph readings={totalAccelerationArray} />
       </>
   );
 }
