@@ -19,6 +19,9 @@ export default Acceleration = () => {
 
   const [subscription, setSubscription] = useState(null);
 
+  const [readingArray, setReadingArray] = useState([]);
+
+
   const _slow = () => {
     Accelerometer.setUpdateInterval(1000);
   };
@@ -28,26 +31,57 @@ export default Acceleration = () => {
       Accelerometer.addListener(accelerometerData => {
         setData(accelerometerData);
       })
-    );
-  };
+      );
+    };
 
-  const { x, y, z } = data;
+    const { x, y, z } = data;
 
 
-  const _unsubscribe = () => {
-    subscription && subscription.remove();
-    setSubscription(null);
-  };
+    const _unsubscribe = () => {
+      subscription && subscription.remove();
+      setSubscription(null);
+    };
 
-  useEffect(() => {
-    _subscribe();
-    return () => _unsubscribe();
-  }, []);
+    const totalAcceleration = () => {
+      const {x, y, z} = data;
+      return Math.abs(x)
+      + Math.abs(y)
+      + Math.abs(z)
+    }
 
-  return (
+    const updateReadingArray = () => {
+      const currentG = totalAcceleration();
+      const samples = 3;
+      let workingArray = readingArray;
+      if (workingArray.length > samples) {
+        workingArray.shift()
+      }
+      workingArray.push(currentG)
+      setReadingArray(workingArray)
+    }
+
+    const getAverageOfArray = (array) => {
+      return (array.reduce((a, b) => a + b) / array.length);
+    }
+
+    const [averageG, setAverageG] = useState(totalAcceleration())
+
+    useEffect(() => {
+      _subscribe();
+      return () => _unsubscribe();
+    }, []);
+
+    useEffect(() => {
+      updateReadingArray();
+      setAverageG(getAverageOfArray(readingArray))
+    }, [data])
+
+    return (
       <Text
       style={styles.header}>
-        x: {Math.round(x)} y: {Math.round(y)} z: {Math.round(z)}
+        {/* x: {x.toFixed(3)} y: {y.toFixed(3)} z: {z.toFixed(3)} */}
+        {/* {totalAcceleration().toFixed(3)} */}
+        {averageG.toFixed(3)}
       </Text>
   );
 }
@@ -57,4 +91,3 @@ const styles = StyleSheet.create({
     fontSize: 32
   }
 });
-
