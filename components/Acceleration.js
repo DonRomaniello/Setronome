@@ -9,6 +9,8 @@ import {
   Accelerometer,
 } from 'expo-sensors';
 
+import Graph from "./Graph";
+
 export default Acceleration = () => {
 
   const [data, setData] = useState({
@@ -19,7 +21,7 @@ export default Acceleration = () => {
 
   const [subscription, setSubscription] = useState(null);
 
-  const [readingArray, setReadingArray] = useState([]);
+  const [readingArray, setReadingArray] = useState([1, 1, 1]);
 
   const _slow = () => {
     Accelerometer.setUpdateInterval(1000);
@@ -85,12 +87,15 @@ export default Acceleration = () => {
     }, [data])
 
     return (
+      <>
       <Text
       style={styles.header}>
         {/* x: {x.toFixed(3)} y: {y.toFixed(3)} z: {z.toFixed(3)} */}
         {/* {totalAcceleration().toFixed(3)} */}
         {averageG.toFixed(3)}
       </Text>
+      <Graph readings={readingArray} />
+      </>
   );
 }
 
