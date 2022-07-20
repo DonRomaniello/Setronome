@@ -6,6 +6,8 @@ import {
 
 import ExpoLogo from "./assets/expo.svg";
 
+import Acceleration from "./components/Acceleration";
+
 export default function App() {
   return (
     <View
@@ -15,6 +17,7 @@ export default function App() {
       style={styles.header}>
         It works.
       </Text>
+      <Acceleration />
       {/* <ExpoLogo width={120} height={120} fill="white" /> */}
     </View>
   );
