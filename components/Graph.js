@@ -32,9 +32,9 @@ export default Graph = (props) => {
       yAxisSuffix="k"
       yAxisInterval={1} // optional, defaults to 1
       chartConfig={{
-        backgroundColor: "#e26a00",
-        backgroundGradientFrom: "#fb8c00",
-        backgroundGradientTo: "#ffa726",
+        backgroundColor: "#AAAE7F",
+        backgroundGradientFrom: "#AAAE7F",
+        backgroundGradientTo: "#7FAAAE",
         decimalPlaces: 2, // optional, defaults to 2dp
         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -42,9 +42,9 @@ export default Graph = (props) => {
           borderRadius: 16
         },
         propsForDots: {
-          r: "6",
-          strokeWidth: "2",
-          stroke: "#ffa726"
+          r: "3",
+          strokeWidth: "1",
+          stroke: "#143109"
         }
       }}
       bezier
