@@ -51,7 +51,7 @@ export default Acceleration = () => {
 
     const updateReadingArray = () => {
       const currentG = totalAcceleration();
-      const samples = 3;
+      const samples = 1000;
       let workingArray = readingArray;
       if (workingArray.length > samples) {
         workingArray.shift()
@@ -60,8 +60,11 @@ export default Acceleration = () => {
       setReadingArray(workingArray)
     }
 
-    const getAverageOfArray = (array) => {
-      return (array.reduce((a, b) => a + b) / array.length);
+    const getAverageOfEndOfArray = (array) => {
+
+      const samples = 3
+
+      return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
     }
 
     const [averageG, setAverageG] = useState(totalAcceleration())
@@ -73,7 +76,7 @@ export default Acceleration = () => {
 
     useEffect(() => {
       updateReadingArray();
-      setAverageG(getAverageOfArray(readingArray))
+      setAverageG(getAverageOfEndOfArray(readingArray))
     }, [data])
 
     return (
