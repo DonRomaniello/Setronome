@@ -1,3 +1,14 @@
+/*
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+DETECT CROSSOVERS
+*/
+
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -36,10 +47,18 @@ export default Acceleration = () => {
 
     const { x, y, z } = data;
 
+    const initialReadingsArrays = {xArray: [x], yArray: [y], zArray: [z]}
+
+    const [readingsArrays, setReadingsArrays] = useState(initialReadingsArrays)
+
     const _unsubscribe = () => {
       subscription && subscription.remove();
       setSubscription(null);
     };
+
+    const getAverageOfEndOfArray = (array, samples) => {
+      return (array.slice(samples * -1).reduce((a, b) => a + b) / samples);
+    }
 
     useEffect(() => {
       _subscribe();
@@ -47,12 +66,16 @@ export default Acceleration = () => {
       return () => _unsubscribe();
     }, []);
 
-    const totalAcceleration = () => {
-      const {x, y, z} = data;
-      return Math.abs(x)
-      + Math.abs(y)
-      + Math.abs(z)
-    }
+    useEffect(() => {
+      const readingsArrayUpdate = {
+        xArray: [...readingsArrays.xArray.slice(-1000), x],
+        yArray: [...readingsArrays.yArray.slice(-1000), y],
+        zArray: [...readingsArrays.zArray.slice(-1000), z]
+      }
+      setReadingsArrays(readingsArrayUpdate)
+    }, [data])
+
+
 
     return (
       <>
@@ -67,7 +90,11 @@ export default Acceleration = () => {
       <Text
       style={styles.header}>
         {z.toFixed(3)}
-        </Text>
+      </Text>
+      <Text
+      style={styles.header}>
+        {getAverageOfEndOfArray(readingsArrays.xArray,100).toFixed(3)}
+      </Text>
       {/* <Graph readings={averageGArray} /> */}
       </>
   );
