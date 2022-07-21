@@ -26,6 +26,8 @@ import {
 
 import Graph from "./Graph";
 
+import GraphDummyData from './GraphDummyData';
+
 
 export default Acceleration = () => {
 
@@ -52,9 +54,11 @@ export default Acceleration = () => {
 
     const { x, y, z } = data;
 
-    const initialReadingsArrays = {xArray: [x.toFixed(1)],
-                                   yArray: [y.toFixed(1)],
-                                   zArray: [z.toFixed(1)]}
+    const decimalPlaces = 2
+
+    const initialReadingsArrays = {xArray: [x.toFixed(decimalPlaces)],
+                                   yArray: [y.toFixed(decimalPlaces)],
+                                   zArray: [z.toFixed(decimalPlaces)]}
 
     const [readingsArrays, setReadingsArrays] = useState(initialReadingsArrays)
 
@@ -82,7 +86,7 @@ export default Acceleration = () => {
 
     return (
       <>
-      <Text
+      {/* <Text
       style={styles.header}>
         {x.toFixed(3)}
       </Text>
@@ -93,12 +97,15 @@ export default Acceleration = () => {
       <Text
       style={styles.header}>
         {z.toFixed(3)}
-      </Text>
+    </Text>*/}
       <Text
       style={styles.header}>
-        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(1)}
+        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}_
+        {getAverageOfEndOfArray(readingsArrays.yArray,10).toFixed(decimalPlaces)}_
+        {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}_
       </Text>
       {/* <Graph readings={averageGArray} /> */}
+      <GraphDummyData />
       </>
   );
 }
