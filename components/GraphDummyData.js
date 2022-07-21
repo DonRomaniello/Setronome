@@ -8,6 +8,8 @@ import {
   LineChart,
 } from "react-native-chart-kit";
 
+import { slidingWindow } from './modules'
+
 /* Lovingly taken from https://www.npmjs.com/package/react-native-chart-kit */
 
 let inputs = []
@@ -21,17 +23,6 @@ let sliceEnd = .6
 
 inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
                         Math.floor(inputs.length * sliceEnd))
-
-
-const slidingWindow = (array, windowWidth) => {
-
-  return array.map((entry, idx) => {
-                return (array
-                .slice(idx, idx + windowWidth)
-                .reduce((a, b) => a + b) / windowWidth)
-              })
-}
-
 
 
 export default GraphDummyData = () => {

@@ -19,7 +19,16 @@ export const crossoverDetector = (
 
   getAverageOfEndOfArray(array, shortWindow)
   getAverageOfEndOfArray(array, longWindow)
+}
 
+export const slidingWindow = (
+                              array,
+                              windowWidth
+                              ) => {
 
-
+    return array.map((entry, idx) => {
+                  return (array
+                  .slice(idx, idx + windowWidth)
+                  .reduce((a, b) => a + b) / windowWidth)
+                })
 }
