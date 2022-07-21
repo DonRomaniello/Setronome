@@ -62,6 +62,10 @@ export default Acceleration = () => {
 
     const [readingsArrays, setReadingsArrays] = useState(initialReadingsArrays)
 
+    const [timeThen, setTimeThen] = useState(Date.now());
+
+    const [frameRate, setFrameRate] = useState();
+
     const _unsubscribe = () => {
       subscription && subscription.remove();
       setSubscription(null);
@@ -69,7 +73,7 @@ export default Acceleration = () => {
 
     useEffect(() => {
       _subscribe();
-      _setSpeed(100);
+      _setSpeed(1000);
       return () => _unsubscribe();
     }, []);
 
@@ -81,6 +85,15 @@ export default Acceleration = () => {
       }
       setReadingsArrays(readingsArrayUpdate)
     }, [data])
+
+    useEffect(() => {
+
+      setFrameRate(Date.now() - timeThen)
+      setTimeThen(Date.now())
+
+
+    }, [data])
+
 
 
 
@@ -100,15 +113,17 @@ export default Acceleration = () => {
     </Text>*/}
       <Text
       style={styles.header}>
-
         {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}
         {"  "}
         {getAverageOfEndOfArray(readingsArrays.yArray,10).toFixed(decimalPlaces)}
         {"  "}
         {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}
       </Text>
+      <Text>
+        {frameRate}
+      </Text>
       {/* <Graph readings={averageGArray} /> */}
-      <GraphDummyData />
+      {/* <GraphDummyData /> */}
       </>
   );
 }
