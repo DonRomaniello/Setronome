@@ -24,23 +24,27 @@ let sliceEnd = .6
 inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
                         Math.floor(inputs.length * sliceEnd))
 
+const data = {
+  datasets: [
+    {
+      data: inputs,
+      color: () => '#EFEFEF',
+    },
+    {
+      data: slidingWindow(inputs, 6),
+      color: () => '#000000',
+      // data: inputs
+    },
+  ]
+}
+
 
 export default GraphDummyData = () => {
 
   return (
     <View>
     <LineChart
-      data={{
-        datasets: [
-          {
-            data: inputs
-          },
-          {
-            data: slidingWindow(inputs, 10)
-            // data: inputs
-          },
-        ]
-      }}
+      data={data}
       width={Dimensions.get("window").width - 30} // from react-native
       height={Dimensions.get("window").width - 30}
       yAxisLabel=""
@@ -49,7 +53,6 @@ export default GraphDummyData = () => {
       chartConfig={chartConfig}
       bezier
       style={{
-        marginVertical: 8,
         borderRadius: 16
       }}
       />
