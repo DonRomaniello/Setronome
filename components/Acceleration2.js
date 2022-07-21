@@ -100,9 +100,12 @@ export default Acceleration = () => {
     </Text>*/}
       <Text
       style={styles.header}>
-        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}_
-        {getAverageOfEndOfArray(readingsArrays.yArray,10).toFixed(decimalPlaces)}_
-        {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}_
+
+        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}
+        {"  "}
+        {getAverageOfEndOfArray(readingsArrays.yArray,10).toFixed(decimalPlaces)}
+        {"  "}
+        {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
       <GraphDummyData />

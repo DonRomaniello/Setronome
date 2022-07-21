@@ -12,9 +12,26 @@ import {
 
 let inputs = []
 
-for (let i = 0; i < 100; i++){
+for (let i = 0; i < 120; i++){
   inputs.push(Math.sin(i/5))
 }
+
+let sliceStart = .25
+let sliceEnd = .6
+
+inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
+                        Math.floor(inputs.length * sliceEnd))
+
+
+const slidingWindow = (array, windowWidth) => {
+
+  return array.map((entry, idx) => {
+                return (array
+                .slice(idx, idx + windowWidth)
+                .reduce((a, b) => a + b) / windowWidth)
+              })
+}
+
 
 
 export default GraphDummyData = () => {
@@ -27,6 +44,10 @@ export default GraphDummyData = () => {
           {
             data: inputs
           },
+          {
+            data: slidingWindow(inputs, 10)
+            // data: inputs
+          },
         ]
       }}
       width={Dimensions.get("window").width - 30} // from react-native
@@ -34,22 +55,7 @@ export default GraphDummyData = () => {
       yAxisLabel=""
       yAxisSuffix="G"
       yAxisInterval={1} // optional, defaults to 1
-      chartConfig={{
-        backgroundColor: "#AAAE7F",
-        backgroundGradientFrom: "#AAAE7F",
-        backgroundGradientTo: "#7FAAAE",
-        decimalPlaces: 2, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        style: {
-          borderRadius: 16
-        },
-        propsForDots: {
-          r: "3",
-          strokeWidth: "1",
-          stroke: "#143109"
-        }
-      }}
+      chartConfig={chartConfig}
       bezier
       style={{
         marginVertical: 8,
@@ -58,4 +64,21 @@ export default GraphDummyData = () => {
       />
   </View>
   )
+}
+
+const chartConfig = {
+  backgroundColor: "#AAAE7F",
+  backgroundGradientFrom: "#AAAE7F",
+  backgroundGradientTo: "#7FAAAE",
+  decimalPlaces: 2, // optional, defaults to 2dp
+  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  style: {
+    borderRadius: 16
+  },
+  propsForDots: {
+    r: "3",
+    strokeWidth: "1",
+    stroke: "#143109"
+  }
 }
