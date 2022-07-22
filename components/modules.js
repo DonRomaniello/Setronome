@@ -27,8 +27,10 @@ export const slidingWindow = (
                               ) => {
 
     return array.map((entry, idx) => {
-                  return (array
-                  .slice(idx, idx + windowWidth)
-                  .reduce((a, b) => a + b) / windowWidth)
+
+      let subArray = array.slice(idx, idx + windowWidth)
+
+      return (subArray
+              .reduce((a, b) => a + b) / subArray.length)
                 })
 }
