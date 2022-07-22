@@ -28,14 +28,29 @@ import Graph from "./Graph";
 
 import GraphDummyData from './GraphDummyData';
 
+const initialData = {
+  x: 0,
+  y: 0,
+  z: 0,
+}
+
+const crossoverMatrixGenerator = (dimensions) => {
+  let crossoverMatrix = []
+  for (let i = 0; i < dimensions; i++) {
+    let crossoverRow = [];
+    for (let i = 0; i < dimensions; i++){
+      crossoverRow.push([false, false])
+    }
+    crossoverMatrix.push(crossoverRow)
+  }
+  return crossoverMatrix
+}
 
 export default Acceleration = () => {
 
-  const [data, setData] = useState({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
+  const [data, setData] = useState(initialData);
+
+  const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator(5))
 
   const [subscription, setSubscription] = useState(null);
 
@@ -79,9 +94,9 @@ export default Acceleration = () => {
 
     useEffect(() => {
       const readingsArrayUpdate = {
-        xArray: [...readingsArrays.xArray.slice(-1000), x],
-        yArray: [...readingsArrays.yArray.slice(-1000), y],
-        zArray: [...readingsArrays.zArray.slice(-1000), z]
+        xArray: [...readingsArrays.xArray.slice(-10000), x],
+        yArray: [...readingsArrays.yArray.slice(-10000), y],
+        zArray: [...readingsArrays.zArray.slice(-10000), z]
       }
       setReadingsArrays(readingsArrayUpdate)
     }, [data])
@@ -121,6 +136,9 @@ export default Acceleration = () => {
       </Text>
       <Text>
         {frameRate}
+      </Text>
+      <Text>
+        {crossovers.length}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
       {/* <GraphDummyData /> */}
