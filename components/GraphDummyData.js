@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 import {
   Dimensions,
   Text,
@@ -12,39 +14,64 @@ import { slidingWindow } from './modules'
 
 /* Lovingly taken from https://www.npmjs.com/package/react-native-chart-kit */
 
-let inputs = []
 
-for (let i = 0; i < 120; i++){
-  inputs.push(Math.sin(i/5))
-}
+// for (let i = 0; i < 120; i++){
+//   inputs.push(Math.sin(i/5))
+// }
 
-let sliceStart = .25
-let sliceEnd = .6
 
-inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
-                        Math.floor(inputs.length * sliceEnd))
 
-const data = {
-  datasets: [
-    {
-      data: inputs,
-      color: () => '#EFEFEF',
-    },
-    {
-      data: slidingWindow(inputs, 6),
-      color: () => '#000000',
-      // data: inputs
-    },
-  ]
-}
+// let sliceStart = .25
+// let sliceEnd = .6
+
+// inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
+//                         Math.floor(inputs.length * sliceEnd))
+
+
+
 
 
 export default GraphDummyData = () => {
 
+    const [inputs, setInputs] = useState([0]);
+
+    const [i, setI] = useState(0);
+
+
+    const incrementIt = () => {
+      let newI = i + 1
+
+      setI(newI)
+      setInputs([...inputs, Math.sin(i/5)].slice(-30))
+
+    }
+
+
+    useEffect(() => {
+
+      setTimeout(incrementIt, 50)
+
+    }, [i])
+
+  // const data =
+
+
   return (
     <View>
     <LineChart
-      data={data}
+      data={{
+        datasets: [
+          {
+            data: inputs,
+            color: () => '#EFEFEF',
+          },
+          {
+            data: slidingWindow(inputs, 5),
+            color: () => '#000000',
+            // data: inputs
+          },
+        ]
+      }}
       width={Dimensions.get("window").width - 30} // from react-native
       height={Dimensions.get("window").width - 30}
       yAxisLabel=""

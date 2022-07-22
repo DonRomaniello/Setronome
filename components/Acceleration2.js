@@ -135,13 +135,10 @@ export default Acceleration = () => {
         {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}
       </Text>
       <Text>
-        {frameRate}
-      </Text>
-      <Text>
         {crossovers.length}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
-      {/* <GraphDummyData /> */}
+      <GraphDummyData />
       </>
   );
 }
