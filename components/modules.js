@@ -34,3 +34,15 @@ export const slidingWindow = (
               .reduce((a, b) => a + b) / subArray.length)
                 })
 }
+
+export const crossoverMatrixGenerator = (dimensions) => {
+  let crossoverMatrix = []
+  for (let i = 0; i < dimensions; i++) {
+    let crossoverRow = [];
+    for (let i = 0; i < dimensions; i++){
+      crossoverRow.push([false, false])
+    }
+    crossoverMatrix.push(crossoverRow)
+  }
+  return crossoverMatrix
+}

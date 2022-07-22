@@ -31,30 +31,9 @@ import { slidingWindow } from './modules'
 
 
 
-export default GraphDummyData = () => {
+export default GraphDummyData = (props) => {
 
-    const [inputs, setInputs] = useState([0]);
-
-    const [i, setI] = useState(0);
-
-
-    const incrementIt = () => {
-      let newI = i + 1
-
-      setI(newI)
-      setInputs([...inputs, Math.sin(i/5)].slice(-30))
-
-    }
-
-
-    useEffect(() => {
-
-      setTimeout(incrementIt, 50)
-
-    }, [i])
-
-  // const data =
-
+  const { inputs } = props
 
   return (
     <View>
@@ -66,9 +45,12 @@ export default GraphDummyData = () => {
             color: () => '#EFEFEF',
           },
           {
-            data: slidingWindow(inputs, 5),
+            data: slidingWindow(inputs, 3),
+            color: () => '#AAAAAA',
+          },
+          {
+            data: slidingWindow(inputs, 6),
             color: () => '#000000',
-            // data: inputs
           },
         ]
       }}
@@ -78,7 +60,7 @@ export default GraphDummyData = () => {
       yAxisSuffix="G"
       yAxisInterval={1} // optional, defaults to 1
       chartConfig={chartConfig}
-      bezier
+      // bezier
       style={{
         borderRadius: 16
       }}
@@ -92,8 +74,8 @@ const chartConfig = {
   backgroundGradientFrom: "#AAAE7F",
   backgroundGradientTo: "#7FAAAE",
   decimalPlaces: 2, // optional, defaults to 2dp
-  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+  labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
   style: {
     borderRadius: 16
   },

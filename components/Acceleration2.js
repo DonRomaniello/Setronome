@@ -1,14 +1,3 @@
-/*
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-DETECT CROSSOVERS
-*/
-
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -21,6 +10,7 @@ import {
 } from 'expo-sensors';
 
 import {
+  crossoverMatrixGenerator,
   getAverageOfEndOfArray,
 } from './modules'
 
@@ -34,18 +24,6 @@ const initialData = {
   z: 0,
 }
 
-const crossoverMatrixGenerator = (dimensions) => {
-  let crossoverMatrix = []
-  for (let i = 0; i < dimensions; i++) {
-    let crossoverRow = [];
-    for (let i = 0; i < dimensions; i++){
-      crossoverRow.push([false, false])
-    }
-    crossoverMatrix.push(crossoverRow)
-  }
-  return crossoverMatrix
-}
-
 export default Acceleration = () => {
 
   const [data, setData] = useState(initialData);
@@ -53,6 +31,22 @@ export default Acceleration = () => {
   const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator(5))
 
   const [subscription, setSubscription] = useState(null);
+
+  const [inputs, setInputs] = useState([0]);
+
+  const [i, setI] = useState(0);
+
+  const incrementIt = () => {
+    let newI = i + 1
+    setI(newI)
+    setInputs([...inputs, Math.sin(i/5)].slice(-30))
+  }
+
+  useEffect(() => {
+
+    setTimeout(incrementIt, 500)
+
+  }, [i])
 
   /* This sets the speed of updates */
   const _setSpeed = (millis) => {
@@ -114,18 +108,6 @@ export default Acceleration = () => {
 
     return (
       <>
-      {/* <Text
-      style={styles.header}>
-        {x.toFixed(3)}
-      </Text>
-      <Text
-      style={styles.header}>
-      {y.toFixed(3)}
-      </Text>
-      <Text
-      style={styles.header}>
-        {z.toFixed(3)}
-    </Text>*/}
       <Text
       style={styles.header}>
         {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}
@@ -138,7 +120,7 @@ export default Acceleration = () => {
         {crossovers.length}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
-      <GraphDummyData />
+      <GraphDummyData inputs={inputs}/>
       </>
   );
 }
