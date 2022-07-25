@@ -14,23 +14,6 @@ import { slidingWindow } from './modules'
 
 /* Lovingly taken from https://www.npmjs.com/package/react-native-chart-kit */
 
-
-// for (let i = 0; i < 120; i++){
-//   inputs.push(Math.sin(i/5))
-// }
-
-
-
-// let sliceStart = .25
-// let sliceEnd = .6
-
-// inputs = inputs.slice(Math.floor(inputs.length *  sliceStart),
-//                         Math.floor(inputs.length * sliceEnd))
-
-
-
-
-
 export default GraphDummyData = (props) => {
 
   const { inputs } = props
@@ -41,16 +24,16 @@ export default GraphDummyData = (props) => {
       data={{
         datasets: [
           {
-            data: inputs,
-            color: () => '#EFEFEF',
+            data: slidingWindow(inputs, 6),
+            color: () => 'rgba(0, 0, 0, .5)',
           },
           {
             data: slidingWindow(inputs, 3),
-            color: () => '#AAAAAA',
+            color: () => 'rgba(0, 0, 128, .5)',
           },
           {
-            data: slidingWindow(inputs, 6),
-            color: () => '#000000',
+            data: inputs,
+            color: () => 'rgba(255, 255, 255, .5)',
           },
         ]
       }}
@@ -76,6 +59,8 @@ const chartConfig = {
   decimalPlaces: 2, // optional, defaults to 2dp
   color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
   labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+  fillShadowGradientFromOpacity: 0,
+  fillShadowGradientToOpacity: 0,
   style: {
     borderRadius: 16
   },

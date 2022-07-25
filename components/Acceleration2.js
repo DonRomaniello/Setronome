@@ -43,9 +43,7 @@ export default Acceleration = () => {
   }
 
   useEffect(() => {
-
     setTimeout(incrementIt, 500)
-
   }, [i])
 
   /* This sets the speed of updates */
