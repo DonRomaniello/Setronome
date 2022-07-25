@@ -35,12 +35,16 @@ export const slidingWindow = (
                 })
 }
 
-export const crossoverMatrixGenerator = (dimensions) => {
+export const crossoverMatrixGenerator = () => {
   let crossoverMatrix = []
-  for (let i = 0; i < dimensions; i++) {
+  for (let i = 0; i < 3; i++) {
     let crossoverRow = [];
-    for (let i = 0; i < dimensions; i++){
-      crossoverRow.push([false, false])
+    for (let i = 0; i < 3; i++){
+      let crossoverEntry = []
+        for (let i = 0; i < 3; i++){
+          crossoverEntry.push(false)
+        }
+      crossoverRow.push(crossoverEntry)
     }
     crossoverMatrix.push(crossoverRow)
   }

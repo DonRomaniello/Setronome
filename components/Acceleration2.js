@@ -28,7 +28,7 @@ export default Acceleration = () => {
 
   const [data, setData] = useState(initialData);
 
-  const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator(5))
+  const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator())
 
   const [subscription, setSubscription] = useState(null);
 
