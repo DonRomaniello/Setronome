@@ -1,3 +1,5 @@
+const stats = require('stats-lite')
+
 export const getAverageOfEndOfArray = (
                                        array,
                                        samples,
@@ -49,4 +51,20 @@ export const crossoverMatrixGenerator = () => {
     crossoverMatrix.push(crossoverRow)
   }
   return crossoverMatrix
+}
+
+export const statsBreakdown = (array) => {
+
+  const std = stats.stdev(array)
+
+  const variance = stats.variance(array)
+
+  const mean = stats.mean(array)
+
+  return {std, variance, mean}
+
+
+
+
+
 }

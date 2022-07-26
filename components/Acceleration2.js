@@ -12,6 +12,8 @@ import {
 import {
   crossoverMatrixGenerator,
   getAverageOfEndOfArray,
+  slidingWindow,
+  statsBreakdown
 } from './modules'
 
 import Graph from "./Graph";
@@ -61,7 +63,7 @@ export default Acceleration = () => {
 
     const { x, y, z } = data;
 
-    const decimalPlaces = 2
+    const decimalPlaces = 3
 
     const initialReadingsArrays = {xArray: [x.toFixed(decimalPlaces)],
                                    yArray: [y.toFixed(decimalPlaces)],
@@ -72,6 +74,8 @@ export default Acceleration = () => {
     const [timeThen, setTimeThen] = useState(Date.now());
 
     const [frameRate, setFrameRate] = useState();
+
+    const [breakdown, setBreakdwon] = useState({});
 
     const _unsubscribe = () => {
       subscription && subscription.remove();
@@ -97,9 +101,10 @@ export default Acceleration = () => {
 
       setFrameRate(Date.now() - timeThen)
       setTimeThen(Date.now())
-
+      setBreakdwon(statsBreakdown(readingsArrays.xArray))
 
     }, [data])
+
 
 
 
@@ -114,11 +119,24 @@ export default Acceleration = () => {
         {"  "}
         {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}
       </Text>
-      <Text>
-        {crossovers.length}
+      <Text
+      style={styles.header}>
+        {inputs.slice(-1)[0].toFixed(decimalPlaces)}
+        {' '}
+        {slidingWindow(inputs, 3).slice(-3)[0].toFixed(decimalPlaces)}
+        {' '}
+        {slidingWindow(inputs, 6).slice(-6)[0].toFixed(decimalPlaces)}
+      </Text>
+      <Text
+      style={styles.header}>
+        {breakdown?.mean?.toFixed(6)}
+        {"  "}
+        {breakdown?.variance?.toFixed(6)}
+        {"  "}
+        {breakdown?.std?.toFixed(6)}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
-      <GraphDummyData inputs={inputs}/>
+      {/* <GraphDummyData inputs={inputs}/> */}
       </>
   );
 }
