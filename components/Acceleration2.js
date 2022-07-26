@@ -75,7 +75,11 @@ export default Acceleration = () => {
 
     const [frameRate, setFrameRate] = useState();
 
-    const [breakdown, setBreakdwon] = useState({});
+    const [breakdownX, setBreakdownX] = useState({});
+
+    const [breakdownY, setBreakdownY] = useState({});
+
+    const [breakdownZ, setBreakdownZ] = useState({});
 
     const _unsubscribe = () => {
       subscription && subscription.remove();
@@ -84,15 +88,15 @@ export default Acceleration = () => {
 
     useEffect(() => {
       _subscribe();
-      _setSpeed(1000);
+      _setSpeed(10);
       return () => _unsubscribe();
     }, []);
 
     useEffect(() => {
       const readingsArrayUpdate = {
-        xArray: [...readingsArrays.xArray.slice(-10000), x],
-        yArray: [...readingsArrays.yArray.slice(-10000), y],
-        zArray: [...readingsArrays.zArray.slice(-10000), z]
+        xArray: [...readingsArrays.xArray.slice(-1000), x],
+        yArray: [...readingsArrays.yArray.slice(-1000), y],
+        zArray: [...readingsArrays.zArray.slice(-1000), z]
       }
       setReadingsArrays(readingsArrayUpdate)
     }, [data])
@@ -101,7 +105,9 @@ export default Acceleration = () => {
 
       setFrameRate(Date.now() - timeThen)
       setTimeThen(Date.now())
-      setBreakdwon(statsBreakdown(readingsArrays.xArray))
+      setBreakdownX(statsBreakdown(readingsArrays.xArray))
+      setBreakdownY(statsBreakdown(readingsArrays.yArray))
+      setBreakdownZ(statsBreakdown(readingsArrays.zArray))
 
     }, [data])
 
@@ -111,7 +117,7 @@ export default Acceleration = () => {
 
     return (
       <>
-      <Text
+      {/* <Text
       style={styles.header}>
         {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}
         {"  "}
@@ -126,14 +132,34 @@ export default Acceleration = () => {
         {slidingWindow(inputs, 3).slice(-3)[0].toFixed(decimalPlaces)}
         {' '}
         {slidingWindow(inputs, 6).slice(-6)[0].toFixed(decimalPlaces)}
+      </Text> */}
+      <Text
+      style={styles.header}>
+        {readingsArrays?.xArray?.length}
       </Text>
       <Text
       style={styles.header}>
-        {breakdown?.mean?.toFixed(6)}
-        {"  "}
-        {breakdown?.variance?.toFixed(6)}
-        {"  "}
-        {breakdown?.std?.toFixed(6)}
+        sY: {breakdownX?.variance?.toFixed(10)}
+      </Text>
+      <Text
+      style={styles.header}>
+        Sx: {breakdownX?.std?.toFixed(10)}
+      </Text>
+      <Text
+      style={styles.header}>
+        Vy: {breakdownY?.variance?.toFixed(10)}
+      </Text>
+      <Text
+      style={styles.header}>
+        Sy: {breakdownY?.std?.toFixed(10)}
+      </Text>
+      <Text
+      style={styles.header}>
+        Vz: {breakdownZ?.variance?.toFixed(10)}
+      </Text>
+      <Text
+      style={styles.header}>
+        Sz: {breakdownZ?.std?.toFixed(10)}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
       {/* <GraphDummyData inputs={inputs}/> */}
