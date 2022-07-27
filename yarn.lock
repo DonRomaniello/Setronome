@@ -10,14 +10,14 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.18.6", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.18.6", "@babel/code-frame@^7.5.5":
   "integrity" "sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q=="
   "resolved" "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.18.6.tgz"
   "version" "7.18.6"
   dependencies:
     "@babel/highlight" "^7.18.6"
 
-"@babel/code-frame@~7.10.4":
+"@babel/code-frame@^7.8.3", "@babel/code-frame@~7.10.4":
   "integrity" "sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg=="
   "resolved" "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz"
   "version" "7.10.4"
@@ -1286,6 +1286,23 @@
     "slugify" "^1.3.4"
     "sucrase" "^3.20.0"
 
+"@expo/config@6.0.24":
+  "integrity" "sha512-OcACI1md1Yo5TQmUxxueJ/RaTlR2Mgl6KswTFOYCL1XJERF/jjAx95zhWXH+JQGdlM0yB0vqM6vB6GbUFRvLxA=="
+  "resolved" "https://registry.npmjs.org/@expo/config/-/config-6.0.24.tgz"
+  "version" "6.0.24"
+  dependencies:
+    "@babel/code-frame" "~7.10.4"
+    "@expo/config-plugins" "4.1.5"
+    "@expo/config-types" "^45.0.0"
+    "@expo/json-file" "8.2.36"
+    "getenv" "^1.0.0"
+    "glob" "7.1.6"
+    "require-from-string" "^2.0.2"
+    "resolve-from" "^5.0.0"
+    "semver" "7.3.2"
+    "slugify" "^1.3.4"
+    "sucrase" "^3.20.0"
+
 "@expo/dev-server@~0.1.110":
   "integrity" "sha512-jUyOv3S55wBsYiFhiYVz35Ui8QTnUGVKlsPRgQHnKU70Ey4jxJqObtGkNnrgazzDfy9S7qFJKiyJQro7621ipA=="
   "resolved" "https://registry.npmjs.org/@expo/dev-server/-/dev-server-0.1.116.tgz"
@@ -1328,6 +1345,23 @@
   "integrity" "sha512-Ha7pNcpl52RJIeYz3gR1ajOgPPl7WLZWiLqtLi94s9J0a7FvmNBMqd/VKrfHNj8QmtZxXcmXr7y7tPhZbVFg7w=="
   "resolved" "https://registry.npmjs.org/@expo/image-utils/-/image-utils-0.3.21.tgz"
   "version" "0.3.21"
+  dependencies:
+    "@expo/spawn-async" "1.5.0"
+    "chalk" "^4.0.0"
+    "fs-extra" "9.0.0"
+    "getenv" "^1.0.0"
+    "jimp-compact" "0.16.1"
+    "mime" "^2.4.4"
+    "node-fetch" "^2.6.0"
+    "parse-png" "^2.1.0"
+    "resolve-from" "^5.0.0"
+    "semver" "7.3.2"
+    "tempy" "0.3.0"
+
+"@expo/image-utils@0.3.22":
+  "integrity" "sha512-uzq+RERAtkWypOFOLssFnXXqEqKjNj9eXN7e97d/EXUAojNcLDoXc0sL+F5B1I4qtlsnhX01kcpoIBBZD8wZNQ=="
+  "resolved" "https://registry.npmjs.org/@expo/image-utils/-/image-utils-0.3.22.tgz"
+  "version" "0.3.22"
   dependencies:
     "@expo/spawn-async" "1.5.0"
     "chalk" "^4.0.0"
@@ -1494,18 +1528,18 @@
   "version" "13.0.0"
 
 "@expo/webpack-config@~0.16.21":
-  "integrity" "sha512-tOZ70r/MJp1+TP5XOvjroRbHVSdJAxSqKVv2ZJ5nml4pv8E7LeLeXbKC5mvIS0+0PQK3PuuD5mm7zBy4sqnq/A=="
-  "resolved" "https://registry.npmjs.org/@expo/webpack-config/-/webpack-config-0.16.26.tgz"
-  "version" "0.16.26"
+  "integrity" "sha512-dC9RzRJAvMncNyxQX1+SR4NfkQPwjYxhxDpeUxGVySEuPLeluG219ddqMTVh2HMeqA7fGZsCEGWa5yVadSknNQ=="
+  "resolved" "https://registry.npmjs.org/@expo/webpack-config/-/webpack-config-0.16.27.tgz"
+  "version" "0.16.27"
   dependencies:
     "@babel/core" "7.9.0"
-    "@expo/config" "6.0.26"
+    "@expo/config" "6.0.24"
     "babel-loader" "8.1.0"
     "chalk" "^4.0.0"
     "clean-webpack-plugin" "^3.0.0"
     "copy-webpack-plugin" "~6.0.3"
     "css-loader" "~3.6.0"
-    "expo-pwa" "0.0.121"
+    "expo-pwa" "0.0.122"
     "file-loader" "~6.0.0"
     "find-yarn-workspace-root" "~2.0.0"
     "getenv" "^1.0.0"
@@ -4825,13 +4859,13 @@
     "compare-versions" "^3.4.0"
     "invariant" "^2.2.4"
 
-"expo-pwa@0.0.121":
-  "integrity" "sha512-GlqhWs09HUbcViofjGFxTvFNPITAndyy2PXveY8dw2gViCEk3itnk0JmGs3pgmOmq262dOHejvcbu3JczEgeww=="
-  "resolved" "https://registry.npmjs.org/expo-pwa/-/expo-pwa-0.0.121.tgz"
-  "version" "0.0.121"
+"expo-pwa@0.0.122":
+  "integrity" "sha512-E2DVR/1SWFXqLLT9XNKnSVoHbZLGhpkx7PigaqfcI/t1hF+A6zAopwDfKmpFGymuSVqlwEJMTr/PYRdhUY55/g=="
+  "resolved" "https://registry.npmjs.org/expo-pwa/-/expo-pwa-0.0.122.tgz"
+  "version" "0.0.122"
   dependencies:
-    "@expo/config" "6.0.26"
-    "@expo/image-utils" "0.3.21"
+    "@expo/config" "6.0.24"
+    "@expo/image-utils" "0.3.22"
     "chalk" "^4.0.0"
     "commander" "2.20.0"
     "update-check" "1.5.3"
@@ -8761,6 +8795,13 @@
     "ansi-styles" "^4.0.0"
     "react-is" "^17.0.1"
 
+"prob.js@^1.0.6":
+  "integrity" "sha512-otP3tOxzQ2GnMhOs/pHP+cgek89JMGEbNcJPPWGIHlXXe1pQhXcWgpthn4u7uXiJUlIh3RtUEOHVcnKqR299BA=="
+  "resolved" "https://registry.npmjs.org/prob.js/-/prob.js-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "random-js" "1.0.x"
+
 "process-nextick-args@~2.0.0":
   "integrity" "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="
   "resolved" "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
@@ -8933,6 +8974,18 @@
   "version" "6.0.2"
   dependencies:
     "inherits" "~2.0.3"
+
+"random-js@1.0.x":
+  "integrity" "sha512-LznfUohEMi6jfwZXa0C5uY1p1tciZozzMiwf9LGlwj52tfvpHozYklHHkrvh2Ya/mdiJ9qPGXR6byVN7+hCMTw=="
+  "resolved" "https://registry.npmjs.org/random-js/-/random-js-1.0.8.tgz"
+  "version" "1.0.8"
+
+"random-normal@^1.0.0":
+  "integrity" "sha512-aursKdfpfdHPpnabQVx6OUiuFpaBLl+6A/8k9u+ApMspjW2EIhZFjX8hNH9LZjpDyo0aTDfBCIgLWQXrsRhd2Q=="
+  "resolved" "https://registry.npmjs.org/random-normal/-/random-normal-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "object-assign" "^4.0.1"
 
 "randombytes@^2.0.0", "randombytes@^2.0.1", "randombytes@^2.0.5", "randombytes@^2.1.0":
   "integrity" "sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ=="

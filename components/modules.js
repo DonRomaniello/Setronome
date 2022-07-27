@@ -54,17 +54,8 @@ export const crossoverMatrixGenerator = () => {
 }
 
 export const statsBreakdown = (array) => {
-
   const std = stats.stdev(array)
-
   const variance = stats.variance(array)
-
   const mean = stats.mean(array)
-
   return {std, variance, mean}
-
-
-
-
-
 }

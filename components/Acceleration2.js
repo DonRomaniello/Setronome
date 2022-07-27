@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+const randomNormal = require('random-normal');
+
+
 import {
   Text,
   StyleSheet
@@ -40,8 +43,13 @@ export default Acceleration = () => {
 
   const incrementIt = () => {
     let newI = i + 1
+
+    let sinI = Math.sin(i/5)
+
+    let normalSinI = randomNormal({mean: sinI, dev: .1})
+
+    setInputs([...inputs, Number(normalSinI)].slice(-30))
     setI(newI)
-    setInputs([...inputs, Math.sin(i/5)].slice(-30))
   }
 
   useEffect(() => {
@@ -82,7 +90,7 @@ export default Acceleration = () => {
 
     useEffect(() => {
       _subscribe();
-      _setSpeed(10);
+      _setSpeed(1000);
       return () => _unsubscribe();
     }, []);
 
@@ -124,12 +132,12 @@ export default Acceleration = () => {
         {' '}
         {slidingWindow(inputs, 6).slice(-6)[0].toFixed(decimalPlaces)}
       </Text> */}
-      <Text
+      {/* <Text
       style={styles.header}>
         {readingsArrays?.xArray?.length}
-      </Text>
+      </Text> */}
       {/* <Graph readings={averageGArray} /> */}
-      {/* <GraphDummyData inputs={inputs}/> */}
+      <GraphDummyData inputs={inputs}/>
       </>
   );
 }
