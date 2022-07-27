@@ -75,12 +75,6 @@ export default Acceleration = () => {
 
     const [frameRate, setFrameRate] = useState();
 
-    const [breakdownX, setBreakdownX] = useState({});
-
-    const [breakdownY, setBreakdownY] = useState({});
-
-    const [breakdownZ, setBreakdownZ] = useState({});
-
     const _unsubscribe = () => {
       subscription && subscription.remove();
       setSubscription(null);
@@ -94,9 +88,9 @@ export default Acceleration = () => {
 
     useEffect(() => {
       const readingsArrayUpdate = {
-        xArray: [...readingsArrays.xArray.slice(-1000), x],
-        yArray: [...readingsArrays.yArray.slice(-1000), y],
-        zArray: [...readingsArrays.zArray.slice(-1000), z]
+        xArray: [...readingsArrays.xArray.slice(-1023), x],
+        yArray: [...readingsArrays.yArray.slice(-1023), y],
+        zArray: [...readingsArrays.zArray.slice(-1023), z]
       }
       setReadingsArrays(readingsArrayUpdate)
     }, [data])
@@ -105,9 +99,6 @@ export default Acceleration = () => {
 
       setFrameRate(Date.now() - timeThen)
       setTimeThen(Date.now())
-      setBreakdownX(statsBreakdown(readingsArrays.xArray))
-      setBreakdownY(statsBreakdown(readingsArrays.yArray))
-      setBreakdownZ(statsBreakdown(readingsArrays.zArray))
 
     }, [data])
 
@@ -136,30 +127,6 @@ export default Acceleration = () => {
       <Text
       style={styles.header}>
         {readingsArrays?.xArray?.length}
-      </Text>
-      <Text
-      style={styles.header}>
-        sY: {breakdownX?.variance?.toFixed(10)}
-      </Text>
-      <Text
-      style={styles.header}>
-        Sx: {breakdownX?.std?.toFixed(10)}
-      </Text>
-      <Text
-      style={styles.header}>
-        Vy: {breakdownY?.variance?.toFixed(10)}
-      </Text>
-      <Text
-      style={styles.header}>
-        Sy: {breakdownY?.std?.toFixed(10)}
-      </Text>
-      <Text
-      style={styles.header}>
-        Vz: {breakdownZ?.variance?.toFixed(10)}
-      </Text>
-      <Text
-      style={styles.header}>
-        Sz: {breakdownZ?.std?.toFixed(10)}
       </Text>
       {/* <Graph readings={averageGArray} /> */}
       {/* <GraphDummyData inputs={inputs}/> */}
