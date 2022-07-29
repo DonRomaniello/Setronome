@@ -12,6 +12,7 @@ import {
 } from 'expo-sensors';
 
 import {
+  crossoverDetector,
   crossoverMatrixGenerator,
   getAverageOfEndOfArray,
   slidingWindow,
@@ -31,31 +32,55 @@ const initialData = {
   z: 0,
 }
 
+const runningWindowSize = {
+  alpha: 3,
+  beta: 5,
+  gamma: 7,
+}
+
+const runningAveragesInit = {
+  alpha: [0],
+  beta: [0],
+  gamma: [0],
+}
+
+const readingArrayLength = 24 - 1
+
 export default Acceleration = () => {
 
   const [data, setData] = useState(initialData);
 
-  const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator())
+  const [crossovers, setCrossovers] = useState(crossoverMatrixGenerator());
 
   const [subscription, setSubscription] = useState(null);
 
+  const [runningAverages, setRunningAverages] = useState(runningAveragesInit);
+
+  /* Dummy data  */
   const [inputs, setInputs] = useState([0]);
-
   const [i, setI] = useState(0);
-
   const incrementIt = () => {
     let newI = i + 1
-
     let sinI = Math.sin(i/5) * .8
-
     let normalSinI = randomNormal({mean: sinI, dev: .05})
-
     setInputs([...inputs, Number(normalSinI)].slice(-30))
     setI(newI)
   }
-
   useEffect(() => {
     setTimeout(incrementIt, 500)
+
+    setRunningAverages({
+        alpha: slidingWindow(inputs,
+              runningWindowSize.alpha).slice(-readingArrayLength),
+        beta: slidingWindow(inputs,
+              runningWindowSize.beta).slice(-readingArrayLength),
+        gamma: slidingWindow(inputs,
+               runningWindowSize.gamma).slice(-readingArrayLength),
+      })
+    console.log(runningAverages.alpha[0],
+                // runningAverages.beta[0],
+                // runningAverages.gamma[0])
+  )
   }, [i])
 
   /* This sets the speed of updates */
@@ -98,9 +123,9 @@ export default Acceleration = () => {
 
     useEffect(() => {
       const readingsArrayUpdate = {
-        xArray: [...readingsArrays.xArray.slice(-1023), x],
-        yArray: [...readingsArrays.yArray.slice(-1023), y],
-        zArray: [...readingsArrays.zArray.slice(-1023), z]
+        xArray: [...readingsArrays.xArray.slice(-readingArrayLength), x],
+        yArray: [...readingsArrays.yArray.slice(-readingArrayLength), y],
+        zArray: [...readingsArrays.zArray.slice(-readingArrayLength), z]
       }
       setReadingsArrays(readingsArrayUpdate)
     }, [data])
@@ -118,26 +143,6 @@ export default Acceleration = () => {
 
     return (
       <>
-      {/* <Text
-      style={styles.header}>
-        {getAverageOfEndOfArray(readingsArrays.xArray,10).toFixed(decimalPlaces)}
-        {"  "}
-        {getAverageOfEndOfArray(readingsArrays.yArray,10).toFixed(decimalPlaces)}
-        {"  "}
-        {getAverageOfEndOfArray(readingsArrays.zArray,10).toFixed(decimalPlaces)}
-      </Text>
-      <Text
-      style={styles.header}>
-        {inputs.slice(-1)[0].toFixed(decimalPlaces)}
-        {' '}
-        {slidingWindow(inputs, 3).slice(-3)[0].toFixed(decimalPlaces)}
-        {' '}
-        {slidingWindow(inputs, 6).slice(-6)[0].toFixed(decimalPlaces)}
-      </Text> */}
-      {/* <Text
-      style={styles.header}>
-        {readingsArrays?.xArray?.length}
-      </Text> */}
       {/* <Graph readings={averageGArray} /> */}
       {/* <GraphDummyData inputs={inputs}/> */}
       <PlaySound />

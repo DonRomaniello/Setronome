@@ -16,7 +16,7 @@ export const crossoverDetector = (
                                   array,
                                   shortWindow,
                                   longWindow,
-                                  flagTarget,
+                                  flagTargetFunction,
                                   ) => {
 
   getAverageOfEndOfArray(array, shortWindow)
@@ -34,7 +34,7 @@ export const slidingWindow = (
 
       return (subArray
               .reduce((a, b) => a + b) / subArray.length)
-                })
+      })
 }
 
 export const crossoverMatrixGenerator = () => {
