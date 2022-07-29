@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const randomNormal = require('random-normal');
 
-
 import {
   Text,
   StyleSheet
@@ -19,9 +18,12 @@ import {
   statsBreakdown
 } from './modules'
 
+
 import Graph from "./Graph";
 
 import GraphDummyData from './GraphDummyData';
+
+import PlaySound from './PlaySound'
 
 const initialData = {
   x: 0,
@@ -44,9 +46,9 @@ export default Acceleration = () => {
   const incrementIt = () => {
     let newI = i + 1
 
-    let sinI = Math.sin(i/5)
+    let sinI = Math.sin(i/5) * .8
 
-    let normalSinI = randomNormal({mean: sinI, dev: .1})
+    let normalSinI = randomNormal({mean: sinI, dev: .05})
 
     setInputs([...inputs, Number(normalSinI)].slice(-30))
     setI(newI)
@@ -137,7 +139,8 @@ export default Acceleration = () => {
         {readingsArrays?.xArray?.length}
       </Text> */}
       {/* <Graph readings={averageGArray} /> */}
-      <GraphDummyData inputs={inputs}/>
+      {/* <GraphDummyData inputs={inputs}/> */}
+      <PlaySound />
       </>
   );
 }

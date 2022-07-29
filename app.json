@@ -1,13 +1,14 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "setronome",
-    "slug": "setronome",
-    "version": "1.0.0",
-    "sdkVersion": "45.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "sdkVersion": "45.0.0",
+    "slug": "setronome",
+    "version": "1.0.0",
   }
 }
